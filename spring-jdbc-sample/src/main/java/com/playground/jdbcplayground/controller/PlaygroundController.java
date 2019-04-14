@@ -36,11 +36,13 @@ public class PlaygroundController
         return new ResponseEntity<>("Data inserted.", HttpStatus.OK);
     }
 
+
     @RequestMapping("/delete")
     public ResponseEntity<String> deleteAllData()
     {
-        mysqlTemplate.execute("DELETE FROM test_db.person");
-        return new ResponseEntity<>("Data inserted.", HttpStatus.OK);
+        String query = "DELETE FROM test_db.person";
+        mysqlTemplate.execute(query);
+        return new ResponseEntity<>("Data deleted.", HttpStatus.OK);
     }
 
 

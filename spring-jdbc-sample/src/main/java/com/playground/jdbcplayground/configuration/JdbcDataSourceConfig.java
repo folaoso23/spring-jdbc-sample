@@ -1,4 +1,4 @@
-package com.playground.jdbcplayground.jdbc;
+package com.playground.jdbcplayground.configuration;
 
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
@@ -6,10 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;i
-
 @Configuration
-public class MysqlTemplate
+public class JdbcDataSourceConfig
 {
     @Bean
     @Qualifier("mysqlJdbcTemplate")
@@ -24,5 +22,4 @@ public class MysqlTemplate
         return new JdbcTemplate(mysqlDataSource);
     }
 
-    //Try a pooled data source here
 }
