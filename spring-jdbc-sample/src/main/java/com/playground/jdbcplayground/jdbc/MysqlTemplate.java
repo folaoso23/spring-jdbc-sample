@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
-import javax.sql.DataSource;
+import javax.sql.DataSource;i
 
 @Configuration
 public class MysqlTemplate
@@ -19,7 +19,7 @@ public class MysqlTemplate
         mysqlDataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         mysqlDataSource.setUsername("fola");
         mysqlDataSource.setPassword("password");
-        mysqlDataSource.setUrl("jdbc:mysql://localhost:3306/test_db");
+        mysqlDataSource.setUrl("jdbc:mysql://localhost:3306/test_db?serverTimezone=UTC");
 
         return new JdbcTemplate(mysqlDataSource);
     }

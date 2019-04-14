@@ -2,29 +2,45 @@ package com.playground.jdbcplayground.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 public class PlaygroundController
 {
     @Autowired
     @Qualifier("mysqlJdbcTemplate")
-    JdbcTemplate mysqlTemplate;
+    private JdbcTemplate mysqlTemplate;
 
     @RequestMapping("/select")
-    public void selectAllData()
+    public ResponseEntity<String> selectAllData()
     {
-        // Call JdbcTemplate here
-        System.out.println(mysqlTemplate.queryForList("select * from test_db.person").toString());
+        String query = "select * from test_db.person";
+        List<Map<String, Object>> results = mysqlTemplate.queryForList(query);
+        return new ResponseEntity<>(results.toString(), HttpStatus.OK);
+
     }
 
-    // Insert as POST Request?
     @RequestMapping("/insert")
-    public void insertData()
+    public ResponseEntity<String> insertData(@RequestParam("name") String name, @RequestParam("gender") String gender, @RequestParam("birth") String birth )
     {
-        mysqlTemplate.execute("INSERT INTO test_db.person (name,sex,birth) values (\"Tom Brady\",\"M\",\"1983-01-29\")");
+        String query = "INSERT INTO test_db.person (name,sex,birth) values (\"" + name + "\",\"" + gender + "\",\""+ birth +"\")";
+        mysqlTemplate.execute(query);
+        return new ResponseEntity<>("Data inserted.", HttpStatus.OK);
+    }
+
+    @RequestMapping("/delete")
+    public ResponseEntity<String> deleteAllData()
+    {
+        mysqlTemplate.execute("DELETE FROM test_db.person");
+        return new ResponseEntity<>("Data inserted.", HttpStatus.OK);
     }
 
 
